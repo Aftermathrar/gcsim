@@ -342,6 +342,11 @@ func (c *char) BikeChargeAttackFinal(caFrames, skippedWindupFrames int) (action.
 	c.HoldBikeChargeAttack(newMinSpinDuration, skippedWindupFrames, bikeHittableEntities)
 
 	c.QueueCharTask(func() {
+		// char must be active
+		if c.Core.Player.Active() != c.Index {
+			return
+		}
+
 		ai := combat.AttackInfo{
 			ActorIndex:       c.Index,
 			Abil:             "Flamestrider Charged Attack (Final)",
